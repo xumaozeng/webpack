@@ -1,5 +1,7 @@
 const path = require("path");
 const minicss = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const htmlwebpackplugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -17,11 +19,11 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
       },
-      {
+      /* {
         test: /\.less$/,
         use: ["kkb-style-loader", "kkb-css-loader", "kkb-less-loader"]
-      },
-      /* {
+      }, */
+      {
         test: /\.less$/,
         use: [
           //   "style-loader",
@@ -35,8 +37,8 @@ module.exports = {
             }
           }
         ]
-      }, */
-      {
+      }
+      /* {
         test: /\.js$/,
         use: [
           {
@@ -47,12 +49,14 @@ module.exports = {
           },
           "replace-loader"
         ]
-      }
+      } */
     ]
   },
   plugins: [
     new minicss({
       filename: "[name].css"
-    })
+    }),
+    new htmlwebpackplugin(),
+    new CleanWebpackPlugin()
   ]
 };

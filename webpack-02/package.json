@@ -11,8 +11,10 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^10.2.5",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.1",
     "cssnano": "^5.0.1",
+    "html-webpack-plugin": "4",
     "less": "^4.1.1",
     "less-loader": "7.3.0",
     "mini-css-extract-plugin": "^1.4.1",
