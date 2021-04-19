@@ -1,4 +1,12 @@
 /**
+ * 多页面打包方案
+ * 多入口entry
+ *
+ * key chunks
+ * 循环遍历对象，动态的实例化htmlwebpackplugin
+ */
+
+/**
  * webpack配置项
  */
 
@@ -7,13 +15,41 @@ const htmlwebpackplugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const minicss = require("mini-css-extract-plugin");
 
+const glob = require("glob");
+const setMPA = () => {
+  const entry = {};
+  const htmlwebpackplugins = [];
+  // 页面路径 glob通配符
+  const entryFiles = glob.sync(path.join(__dirname, "./src/*/index.js"));
+  //   console.log(entryFiles);
+  entryFiles.forEach((item, index) => {
+    const entryFile = item;
+    const match = entryFile.match(/src\/(.*)\/index\.js/);
+    // console.log(match);
+    const pageName = match[1];
+    entry[pageName] = item;
+    htmlwebpackplugins.push(
+      new htmlwebpackplugin({
+        template: path.join(__dirname, `src/${pageName}/index.html`),
+        filename: `${pageName}.html`,
+        chunks: [pageName]
+      })
+    );
+  });
+
+  //返回entry和htmlwebpackplugins
+  return {
+    entry,
+    htmlwebpackplugins
+  };
+};
+
+const { entry, htmlwebpackplugins } = setMPA();
+
 module.exports = {
-  entry: {
-    index: "./src/index.js",
-    list: "./src/list.js"
-  },
+  entry,
   output: {
-    path: path.resolve(__dirname + "/dist"),
+    path: path.resolve(__dirname + "/mpa"),
     filename: "[name]-[chunkhash:6].js"
   },
   mode: "development",
@@ -54,16 +90,7 @@ module.exports = {
     new minicss({
       filename: "css/[name]-[contenthash:6].css"
     }),
-    new htmlwebpackplugin({
-      template: "./src/index.html",
-      filename: "index.html",
-      chunks: ["index"]
-    }),
-    new htmlwebpackplugin({
-      template: "./src/list.html",
-      filename: "list.html",
-      chunks: ["list"]
-    }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    ...htmlwebpackplugins
   ]
 };

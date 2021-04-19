@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack"
+    "dev": "webpack",
+    "mpa": "webpack --config ./mpa.webpack.config.js"
   },
   "keywords": [],
   "author": "",
