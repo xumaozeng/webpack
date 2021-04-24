@@ -4,6 +4,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const minicss = require("mini-css-extract-plugin");
 const { HotModuleReplacementPlugin } = require("webpack");
 
+const txtwebpackplugin = require("./MyPlugins/txt-webpack-plugin");
+
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -49,6 +51,7 @@ module.exports = {
     new minicss({
       filename: "css/[name].css"
     }),
-    new HotModuleReplacementPlugin()
+    new HotModuleReplacementPlugin(),
+    new txtwebpackplugin()
   ]
 };
