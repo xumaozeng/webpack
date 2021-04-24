@@ -50,3 +50,23 @@ HMR：热模块替换
 - js模块
 
 不⽀持contenthash，chunkhash
+
+
+
+babel：处理js模块 本身是一个JS编译器，把js代码编译为浏览器可以运行兼容的代码
+
+支持ES6语法 兼容低版本浏览器
+
+支持其他技术展 Vue JSX React TS
+
+ES6语法 const let
+
+ES6特性 promise
+
+
+
+@babel/core babel-loader -D
+
+@babel/preset-env 处理ES6语法
+
+@babel/polyfill 处理ES6新特性

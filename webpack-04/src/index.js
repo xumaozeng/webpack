@@ -1,23 +1,31 @@
+// import "@babel/polyfill"; // 处理ES6新特性
+
+const arr = [new Promise(() => {}), new Promise(() => {})];
+
+arr.map(item => {
+  console.log(item);
+});
+
 // import css from "./index.css";
-import less from "./index.less";
-import axios from "axios";
-import counter from "./counter";
-import number from "./number";
+// import less from "./index.less";
+// import axios from "axios";
+// import counter from "./counter";
+// import number from "./number";
 
-counter();
-number();
+// counter();
+// number();
 
-if (module.hot) {
-  module.hot.accept("./number.js", () => {
-    /**
-     * 先找到number模块
-     * 删
-     * 重新生成
-     */
-    document.body.removeChild(document.getElementById("number"));
-    number();
-  });
-}
+// if (module.hot) {
+//   module.hot.accept("./number.js", () => {
+//     /**
+//      * 先找到number模块
+//      * 删
+//      * 重新生成
+//      */
+//     document.body.removeChild(document.getElementById("number"));
+//     number();
+//   });
+// }
 
 /* axios.get("/api/info").then(res => {
   console.log(res);

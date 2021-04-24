@@ -33,6 +33,10 @@ module.exports = {
       {
         test: /\.less$/,
         use: [minicss.loader, "css-loader", "less-loader"]
+      },
+      {
+        test: /\.js$/,
+        use: "babel-loader" // babel是个工具
       }
     ]
   },

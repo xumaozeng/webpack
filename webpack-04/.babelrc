@@ -1,0 +1,18 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          // 这些现代浏览器都支持ES6新特性，ie需要转换
+          "edge": "17",
+          "chrome": "67",
+          "firefox": "60",
+          "safari": "11.1"
+        },
+        "corejs": 2, // 3x
+        "useBuiltIns": "usage" // entry usage false
+      }
+    ]
+  ]
+}
