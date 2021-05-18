@@ -1,3 +1,11 @@
-import css from "./index.css";
+import less from "./index.less";
+import logo from "./images/logo.png";
 
-console.log(css.toString());
+console.log(less.toString());
+
+const img = new Image();
+img.src = logo;
+img.classList.add("logo");
+
+const root = document.getElementById("root");
+root.append(img);

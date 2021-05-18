@@ -7,8 +7,15 @@
     "dev": "webpack"
   },
   "devDependencies": {
+    "autoprefixer": "^10.2.5",
     "css-loader": "^5.2.4",
+    "file-loader": "^6.2.0",
+    "less": "^4.1.1",
+    "less-loader": "7.3.0",
+    "postcss": "^8.2.10",
+    "postcss-loader": "4.2.0",
     "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.12"
   }

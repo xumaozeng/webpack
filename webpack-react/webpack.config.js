@@ -1,3 +1,4 @@
+const autoprefixer = require("autoprefixer");
 const path = require("path");
 
 module.exports = {
@@ -10,8 +11,35 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"] // style-loader是把css代码以style标签方式插入到HTML中
+        test: /\.less$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "less-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  autoprefixer({
+                    overrideBrowserslist: ["last 2 versions", ">1% "]
+                  })
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|svg|jpe?g|gif)$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            name: "[name]-[hash:6].[ext]",
+            outputPath: "images/",
+            limit: 1024 * 3
+          }
+        }
       }
     ]
   }
