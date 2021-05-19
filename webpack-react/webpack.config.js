@@ -1,5 +1,6 @@
 const autoprefixer = require("autoprefixer");
 const path = require("path");
+const { HotModuleReplacementPlugin } = require("webpack");
 
 module.exports = {
   entry: "./src/index.js",
@@ -10,7 +11,16 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    port: 8080
+    port: 8080,
+    hot: true,
+    open: true,
+    proxy: {
+      "/api": {
+        target: "https://www.baidu.com/",
+        secure: false,
+        pathRewrite: { "^/api": "" }
+      }
+    }
   },
   module: {
     rules: [
@@ -46,5 +56,6 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [new HotModuleReplacementPlugin()]
 };
