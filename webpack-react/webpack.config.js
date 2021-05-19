@@ -1,6 +1,9 @@
 const autoprefixer = require("autoprefixer");
 const path = require("path");
 const { HotModuleReplacementPlugin } = require("webpack");
+const minicss = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const htmlwebpackplugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -8,6 +11,20 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "main.js"
+  },
+  resolve: {
+    modules: [path.resolve(__dirname, "./node_modules")],
+    alias: {
+      "@": path.join(__dirname, "./src"),
+      react: path.resolve(
+        __dirname,
+        "./node_modules/react/umd/react.production.min.js"
+      ),
+      "react-dom": path.resolve(
+        __dirname,
+        "./node_modules/react-dom/umd/react-dom.production.min.js"
+      )
+    }
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
@@ -27,7 +44,8 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          "style-loader",
+          // "style-loader",
+          minicss.loader,
           "css-loader",
           "less-loader",
           {
@@ -54,8 +72,44 @@ module.exports = {
             limit: 1024 * 3
           }
         }
+      },
+      {
+        test: /\.js[x]?$/,
+        include: [path.resolve(__dirname, "src")],
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  targets: {
+                    edge: "17",
+                    firefox: "60",
+                    chrome: "67",
+                    safari: "11.1"
+                  },
+                  corejs: 2,
+                  useBuiltIns: "usage"
+                }
+              ],
+              "@babel/preset-react"
+            ]
+          }
+        }
       }
     ]
   },
-  plugins: [new HotModuleReplacementPlugin()]
+  plugins: [
+    new HotModuleReplacementPlugin(),
+    new minicss({
+      filename: "css/[name]_[contenthash:6].css",
+      chunkFilename: "[id].css"
+    }),
+    new CleanWebpackPlugin(),
+    new htmlwebpackplugin({
+      title: "Webpack React",
+      template: "./src/index.html"
+    })
+  ]
 };
