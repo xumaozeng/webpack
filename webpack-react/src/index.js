@@ -23,7 +23,10 @@ if (module.hot) {
   });
 }
  */
-
-export default function (a, b) {
+/* export default function (a, b) {
   return a + b;
-}
+} */
+
+import { minus } from "./a";
+
+console.log(minus(20, 20));

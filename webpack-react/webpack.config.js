@@ -19,6 +19,7 @@ module.exports = {
     libraryExport: "default"
   },
   mode: "none",
+  devtool: "eval-source-map",
   optimization: {
     minimize: true,
     minimizer: [
@@ -128,3 +129,13 @@ module.exports = {
     }) */
   ]
 };
+
+// 在package.json里设置 cross-env NODE_ENV=production
+// process.env.NODE_ENV获取用户环境变量
+/* module.exports = () => {
+  if (process.env.NODE_ENV === "production") {
+    return merge(base, devConfig);
+  } else {
+    return merge(base, prodConfig);
+  }
+}; */
