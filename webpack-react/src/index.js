@@ -1,4 +1,4 @@
-import less from "./index.less";
+/* import less from "./index.less";
 import logo from "@/images/logo.png";
 import App from "./App.jsx";
 
@@ -21,4 +21,9 @@ if (module.hot) {
       console.error("Cannot apply HRM update.", err);
     }
   });
+}
+ */
+
+export default function (a, b) {
+  return a + b;
 }

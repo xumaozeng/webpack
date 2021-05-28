@@ -3,14 +3,29 @@ const path = require("path");
 const { HotModuleReplacementPlugin } = require("webpack");
 const minicss = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const htmlwebpackplugin = require("html-webpack-plugin");
+// const htmlwebpackplugin = require("html-webpack-plugin");
+const terserplugin = require("terser-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
-  mode: "development",
+  entry: {
+    "add-number.production.min": "./src/index.js",
+    "add-number.development": "./src/index.js"
+  },
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "main.js"
+    path: path.resolve(__dirname, "./umd"),
+    filename: "[name].js",
+    library: "addNumber",
+    libraryTarget: "umd",
+    libraryExport: "default"
+  },
+  mode: "none",
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new terserplugin({
+        test: /\.min\.js$/
+      })
+    ]
   },
   resolve: {
     modules: [path.resolve(__dirname, "./node_modules")],
@@ -106,10 +121,10 @@ module.exports = {
       filename: "css/[name]_[contenthash:6].css",
       chunkFilename: "[id].css"
     }),
-    new CleanWebpackPlugin(),
-    new htmlwebpackplugin({
+    new CleanWebpackPlugin()
+    /* new htmlwebpackplugin({
       title: "Webpack React",
       template: "./src/index.html"
-    })
+    }) */
   ]
 };
